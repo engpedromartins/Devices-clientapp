@@ -1,7 +1,8 @@
-
-
 import { useState, useEffect } from 'react'
 import { getDeviceApiList } from '../../Services/api'
+
+import { toast } from 'react-toastify'
+
 
 export default function Dashboard() {
 
@@ -14,7 +15,7 @@ export default function Dashboard() {
         if (res.status === 200) return setListOfDevices(res.data)
 
       } catch (error) {
-
+        toast.error('Ops something was wrong!')
       }
     }
     getDeviceList()
