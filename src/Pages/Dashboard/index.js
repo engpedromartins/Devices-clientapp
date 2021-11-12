@@ -26,12 +26,19 @@ export default function Dashboard() {
       {listOfDevices?.length && listOfDevices.map((device) => {
         return (
           <div key={device.id}>
-            <div>{device.system_name}</div>
-            <div>{device.type}</div>
-            <div>{device.hdd_capacity}</div>
+            <div>
+              <div>{device.system_name}</div>
+              <div>{device.type}</div>
+              <div>{device.hdd_capacity}</div>
+            </div>
+            <div style={{ marginBottom: '20px' }}>
+              <button>edit</button>
+              <button>exclude</button>
+            </div>
           </div>
         )
       })}
+      <button>add</button>
     </div>
   )
 }
