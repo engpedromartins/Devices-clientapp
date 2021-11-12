@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import { TextField, MenuItem, } from '@material-ui/core';
 
 const validationSchema = yup.object({
-  system_mame: yup
+  system_name: yup
     .string('')
     .required('System name is required'),
 
@@ -20,12 +20,12 @@ const validationSchema = yup.object({
 });
 
 
-function Form({ getInfoLogin }) {
+function Form({ data }) {
   const formik = useFormik({
     initialValues: {
-      system_mame: '',
-      type: 'DEFAULT',
-      hdd_capacity: ''
+      system_name: data.system_name || '',
+      type: data.type || 'DEFAULT',
+      hdd_capacity: data.hdd_capacity || ''
     },
 
     validationSchema: validationSchema,
@@ -48,15 +48,15 @@ function Form({ getInfoLogin }) {
 
           <TextField
             fullWidth
-            id="system_mame"
-            name="system_mame"
+            id="system_name"
+            name="system_name"
             label="System mame"
             variant="outlined"
             margin="normal"
-            value={formik.values.system_mame}
+            value={formik.values.system_name}
             onChange={formik.handleChange}
-            error={formik.touched.system_mame && Boolean(formik.errors.system_mame)}
-            helperText={formik.touched.system_mame && formik.errors.system_mame}
+            error={formik.touched.system_name && Boolean(formik.errors.system_name)}
+            helperText={formik.touched.system_name && formik.errors.system_name}
           />
         </div>
         <div>
@@ -75,9 +75,9 @@ function Form({ getInfoLogin }) {
             helperText={formik.touched.type && formik.errors.type}
           >
             <MenuItem value="DEFAULT" disabled>Choose one ...</MenuItem>
-            <MenuItem value='Windows Workstation'>Windows Workstation</MenuItem>
-            <MenuItem value='Windows Server'>Windows Server</MenuItem>
-            <MenuItem value='Mac'>Mac</MenuItem>
+            <MenuItem value='WINDOWS_WORKSTATION'>Windows Workstation</MenuItem>
+            <MenuItem value='WINDOWS_SERVER'>Windows Server</MenuItem>
+            <MenuItem value='MAC'>Mac</MenuItem>
           </TextField>
         </div>
 

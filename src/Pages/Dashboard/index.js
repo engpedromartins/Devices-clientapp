@@ -11,6 +11,7 @@ export default function Dashboard() {
 
   const [listOfDevices, setListOfDevices] = useState([])
   const [showModal, setShowModal] = useState(false)
+  const [deviceToBeEdited, setDeviceToBeEdited] = useState(null)
 
   useEffect(() => {
     async function getDeviceList() {
@@ -37,8 +38,9 @@ export default function Dashboard() {
     }
   }
 
-  function togglePostModal() {
+  function togglePostModal(data) {
     setShowModal(!showModal)
+    setDeviceToBeEdited(data)
   }
 
   return (
@@ -52,7 +54,7 @@ export default function Dashboard() {
               <div>{device.hdd_capacity}</div>
             </div>
             <div style={{ marginBottom: '20px' }}>
-              <button onClick={() => togglePostModal()}>update</button>
+              <button onClick={() => togglePostModal(device)}>update</button>
               <button>delete</button>
             </div>
           </div>
@@ -60,7 +62,7 @@ export default function Dashboard() {
       })}
       <button>add</button>
 
-      {showModal && (<Modal close={togglePostModal} />)}
+      {showModal && (<Modal data={deviceToBeEdited} close={togglePostModal} />)}
 
     </div>
   )
