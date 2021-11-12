@@ -1,5 +1,7 @@
 
 import './style.scss'
+
+import Form from '../Form'
 export default function Modal({ conteudo, close }) {
 
 
@@ -8,7 +10,7 @@ export default function Modal({ conteudo, close }) {
       <div className="container">
 
         <div className='style-button-modal'>
-
+          <Form />
           <button onClick={close}>
             Cancelar
           </button>

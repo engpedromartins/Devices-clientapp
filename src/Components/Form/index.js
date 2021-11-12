@@ -1,0 +1,115 @@
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+import Button from '@material-ui/core/Button';
+import { TextField, MenuItem, } from '@material-ui/core';
+
+const validationSchema = yup.object({
+  system_mame: yup
+    .string('')
+    .required('System name is required'),
+
+  type: yup
+    .string('')
+    .required('Type is required'),
+
+  hdd_capacity: yup
+    .number()
+    .typeError("Must be a number")
+    .required('HDD is required')
+
+});
+
+
+function Form({ getInfoLogin }) {
+  const formik = useFormik({
+    initialValues: {
+      system_mame: '',
+      type: 'DEFAULT',
+      hdd_capacity: ''
+    },
+
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+
+      console.log(values)
+    },
+  });
+
+  return (
+
+    <div>
+
+      <form
+        className='form'
+        onSubmit={formik.handleSubmit}
+      >
+        <div
+        >
+
+          <TextField
+            fullWidth
+            id="system_mame"
+            name="system_mame"
+            label="System mame"
+            variant="outlined"
+            margin="normal"
+            value={formik.values.system_mame}
+            onChange={formik.handleChange}
+            error={formik.touched.system_mame && Boolean(formik.errors.system_mame)}
+            helperText={formik.touched.system_mame && formik.errors.system_mame}
+          />
+        </div>
+        <div>
+          <TextField
+            fullWidth
+            select
+            id="type"
+            name="type"
+            label="Type"
+            margin="normal"
+            variant="outlined"
+            value={formik.values.type}
+            defaultValue="DEFAULT"
+            onChange={formik.handleChange}
+            error={formik.touched.type && Boolean(formik.errors.type)}
+            helperText={formik.touched.type && formik.errors.type}
+          >
+            <MenuItem value="DEFAULT" disabled>Choose one ...</MenuItem>
+            <MenuItem value='Windows Workstation'>Windows Workstation</MenuItem>
+            <MenuItem value='Windows Server'>Windows Server</MenuItem>
+            <MenuItem value='Mac'>Mac</MenuItem>
+          </TextField>
+        </div>
+
+        <div>
+          <TextField
+            fullWidth
+            id="hdd_capacity"
+            name="hdd_capacity"
+            label="HDD Capacity GB"
+            margin="normal"
+            variant="outlined"
+            value={formik.values.hdd_capacity}
+            onChange={formik.handleChange}
+            error={formik.touched.hdd_capacity && Boolean(formik.errors.hdd_capacity)}
+            helperText={formik.touched.hdd_capacity && formik.errors.hdd_capacity}
+          />
+        </div>
+
+        <Button
+          fullWidth
+          className='post-button'
+          variant="contained"
+          type="submit"
+          style={{ marginTop: '15px' }}
+        >
+          Send
+        </Button>
+
+      </form>
+    </div>
+  );
+};
+
+export default Form
+
