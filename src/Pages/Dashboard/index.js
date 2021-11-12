@@ -1,4 +1,7 @@
 import { useState, useEffect } from 'react'
+
+import Modal from '../../Components/Modal'
+
 import { getDeviceApiList, editDeviceApi } from '../../Services/api'
 
 import { toast } from 'react-toastify'
@@ -7,6 +10,7 @@ import { toast } from 'react-toastify'
 export default function Dashboard() {
 
   const [listOfDevices, setListOfDevices] = useState([])
+  const [showModal, setShowModal] = useState(false)
 
   useEffect(() => {
     async function getDeviceList() {
@@ -33,6 +37,10 @@ export default function Dashboard() {
     }
   }
 
+  function togglePostModal() {
+    setShowModal(!showModal)
+  }
+
   return (
     <div>
       {listOfDevices?.length && listOfDevices.map((device) => {
@@ -44,13 +52,16 @@ export default function Dashboard() {
               <div>{device.hdd_capacity}</div>
             </div>
             <div style={{ marginBottom: '20px' }}>
-              <button onClick={() => console.log('clicou')}>update</button>
+              <button onClick={() => togglePostModal()}>update</button>
               <button>delete</button>
             </div>
           </div>
         )
       })}
       <button>add</button>
+
+      {showModal && (<Modal close={togglePostModal} />)}
+
     </div>
   )
 }
