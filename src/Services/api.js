@@ -13,8 +13,18 @@ export const createDeviceApi = async (payload) =>
 export const getDeviceApi = async (id) =>
   api.get(`/devices/${id}`)
 
-export const editDeviceApi = async (id) =>
-  api.put(`/devices/${id}`)
+export const editDeviceApi = async (device) => {
+  console.log("device", device)
+  const updatedDevice = {
+    system_name: device.system_name,
+    type: device.type,
+    hdd_capacity: device.hdd_capacity
+  }
+
+  console.log("updated device", updatedDevice)
+
+  api.put(`/devices/${device.id}`, updatedDevice)
+}
 
 export const deleteDeviceApi = async (id) =>
   api.delete(`/devices/${id}`)
