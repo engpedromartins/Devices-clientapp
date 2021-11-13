@@ -12,7 +12,7 @@ export default function Modal({
 }) {
 
   return (
-    <div className="modal" style={{ background: 'black' }}>
+    <div className="modal" >
       <div className="container">
 
         <div className='style-button-modal'>

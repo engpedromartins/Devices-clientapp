@@ -50,6 +50,8 @@ function Form({ deviceSelected, updateDevice, createDevice }) {
 
           <TextField
             fullWidth
+            onFocus='red'
+
             id="system_name"
             name="system_name"
             label="System mame"
@@ -63,6 +65,7 @@ function Form({ deviceSelected, updateDevice, createDevice }) {
         </div>
         <div>
           <TextField
+            onFocus='red'
             fullWidth
             select
             id="type"
@@ -85,6 +88,8 @@ function Form({ deviceSelected, updateDevice, createDevice }) {
 
         <div>
           <TextField
+            onFocus='black'
+            onSelect='black'
             fullWidth
             id="hdd_capacity"
             name="hdd_capacity"
@@ -108,8 +113,8 @@ function Form({ deviceSelected, updateDevice, createDevice }) {
           Send
         </Button>
 
-      </form>
-    </div>
+      </form >
+    </div >
   );
 };
 
