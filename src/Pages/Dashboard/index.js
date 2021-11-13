@@ -11,6 +11,7 @@ import {
 } from '../../Services/api'
 
 import Modal from '../../Components/Modal'
+import FilterTypeOfDevice from '../../Components/FilterByType';
 
 
 import {
@@ -37,6 +38,7 @@ import {
 export default function Dashboard() {
 
   const [listOfDevices, setListOfDevices] = useState([])
+  const [listOfDevicesFiltered, setListOfDevicesFiltered] = useState([])
   const [showModal, setShowModal] = useState(false)
   const [deviceSelected, setDeviceSelected] = useState(null)
   const [updateList, setUpdateList] = useState(false)
@@ -130,6 +132,23 @@ export default function Dashboard() {
     setColumnDirection(direction)
   };
 
+  function fcn(typeOfdevices) {
+
+  }
+
+  function filterByType(typeOfdevices) {
+
+    const elementToBeFilter = []
+
+    typeOfdevices.forEach(element => {
+      elementToBeFilter.push(listOfDevices.filter((device) =>
+        device.type.includes(element))
+      )
+    });
+    var elementFiltered = elementToBeFilter.reduce((list, sub) => list.concat(sub), [])
+    console.log(elementFiltered)
+  }
+
   return (
     <div className='container'>
       <div className='section'>
@@ -138,7 +157,7 @@ export default function Dashboard() {
 
       </div>
 
-
+      <FilterTypeOfDevice filterByType={filterByType} />
       <div className='section'>
         <TableContainer sx={{ maxHeight: 440 }}>
           <Table stickyHeader aria-label="sticky table">
