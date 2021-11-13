@@ -11,6 +11,29 @@
   z-index: 99;
 }
 
+.container-modal{
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 20px;
+  width: 250px;
+  min-height: 130px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  button{
+    border: none;
+    border-radius: 5px;
+  }
+}
+
+.wrapper-buton-modal{
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid black;
+  justify-content: space-between;
+  
+}
 .modal .container{
   position: fixed;
   max-width: 280px;
@@ -23,27 +46,6 @@
   box-shadow: 0 0 20px rgba(0,0,0, 0.8);
 }
 
-.style-button-modal{
-  display: 'flex';
-  flex-direction: 'column';
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  margin: auto;
-  button{
-  background-color: transparent;
-  border:0;
-  margin: auto;
-  color: #3b424dFF;
-  //position: absolute;
-  bottom: 0px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 4px 15px;
-  border-radius: 5px;
-}
-}
 .close svg{
   margin-right: 5px;
 }

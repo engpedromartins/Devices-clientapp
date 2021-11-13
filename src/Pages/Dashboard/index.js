@@ -31,8 +31,6 @@ import {
   FaRegEdit,
   FaPlusCircle,
   FaTrash,
-  FaTimesCircle,
-  FaCheckCircle
 } from 'react-icons/fa'
 
 
@@ -142,7 +140,6 @@ export default function Dashboard() {
 
 
       <div className='section'>
-
         <TableContainer sx={{ maxHeight: 440 }}>
           <Table stickyHeader aria-label="sticky table">
 
@@ -188,9 +185,18 @@ export default function Dashboard() {
                         {device.hdd_capacity} GB
                       </TableCell>
                       <TableCell>
-                        <div style={{ marginBottom: '20px' }}>
-                          <button onClick={() => togglePostModal(device)}>update</button>
-                          <button onClick={() => togglePostModal(device, { showDelete: true })}>delete </button>
+                        <div className='button-stack'>
+                          <button
+                            style={{ marginRight: '5px' }}
+                            onClick={() =>
+                              togglePostModal(device)}>
+                            <FaRegEdit /> update
+                          </button>
+                          <button
+                            onClick={() =>
+                              togglePostModal(device, { showDelete: true })}>
+                            <FaTrash />delete
+                          </button>
                         </div>
                       </TableCell>
                     </TableRow>

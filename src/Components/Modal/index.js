@@ -2,6 +2,12 @@
 import './style.scss'
 
 import Form from '../Form'
+
+import {
+  FaTimesCircle,
+  FaCheckCircle
+} from 'react-icons/fa'
+
 export default function Modal({
   deviceSelected,
   close,
@@ -18,11 +24,15 @@ export default function Modal({
         <div className='style-button-modal'>
           {showDelete
             ? (
-              <>
-                <h1>Are you sure</h1>
-                <button onClick={() => deleteDevice(deviceSelected)}>Yes</button>
-                <button onClick={close}>No</button>
-              </>
+              <div className='container-modal'>
+                <h1>Are you sure?</h1>
+                <div className='button-stack'>
+                  <button style={{ marginRight: '5px' }} onClick={() =>
+                    deleteDevice(deviceSelected)}><FaCheckCircle />Yes
+                  </button>
+                  <button onClick={close}><FaTimesCircle />No</button>
+                </div>
+              </div>
             )
             : <>
               < Form

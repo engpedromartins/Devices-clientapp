@@ -18,18 +18,45 @@
   button{
     display: flex;
     align-items: center;
+    border: none;
+    border-radius: 5px;
     svg{
       padding-right: 10px;
     }
   }
+ 
   //TODO review this
   
 }
 
-
-  .addButton{
-    background: gray;
-    color: white;
-    padding: 10px 30px;
-    border: none;
+.button-stack{
+  display: flex;
+  flex-direction: row;
+  button{
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    svg{
+      padding: 5px;
+    }
+  
   }
+  button:hover{
+    color: white;
+    background-color: black;
+    transition: 600ms;
+  }
+}
+.addButton{
+  background: black;
+  color: white;
+  padding: 10px 30px;
+  border: none;
+}
+
+.addButton:hover{
+  transition: 600ms;
+  opacity: 1;
+  background: black;
+  padding: 12px 33px;
+}
