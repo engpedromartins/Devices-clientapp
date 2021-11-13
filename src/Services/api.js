@@ -8,7 +8,7 @@ export const getDeviceApiList = async () =>
   api.get(`/devices`)
 
 export const createDeviceApi = async (payload) =>
-  api.post(`/devices`, { payload })
+  api.post(`/devices`, payload)
 
 export const getDeviceApi = async (id) =>
   api.get(`/devices/${id}`)

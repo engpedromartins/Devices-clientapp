@@ -2,7 +2,12 @@ import { useState, useEffect } from 'react'
 
 import Modal from '../../Components/Modal'
 
-import { getDeviceApiList, editDeviceApi, deleteDeviceApi } from '../../Services/api'
+import {
+  getDeviceApiList,
+  editDeviceApi,
+  deleteDeviceApi,
+  createDeviceApi
+} from '../../Services/api'
 
 import { toast } from 'react-toastify'
 
@@ -16,6 +21,8 @@ export default function Dashboard() {
   const [showDeleteMesage, setShowDelete] = useState(false)
 
   useEffect(() => {
+
+    //LIST
     async function getDeviceList() {
       try {
         const res = await getDeviceApiList()
@@ -29,6 +36,7 @@ export default function Dashboard() {
     getDeviceList()
   }, [updateList])
 
+  //UPDATE
   async function updateDevice(device, id) {
     try {
       const res = await editDeviceApi(device, id)
@@ -44,6 +52,7 @@ export default function Dashboard() {
     }
   }
 
+  //DELETE
   async function deleteDevice(id) {
     try {
       const res = await deleteDeviceApi(id)
@@ -58,6 +67,24 @@ export default function Dashboard() {
 
     }
   }
+
+  //CREATE
+  async function createDevice(device) {
+    try {
+      const res = await createDeviceApi(device)
+      console.log(res)
+      if (res.status === 200) {
+        setUpdateList(!updateList)
+        setShowModal(!showModal)
+      }
+    } catch (error) {
+      toast.error('Ops something was wrong! Look at console')
+      console.log('Error =>', { error })
+
+    }
+  }
+
+
 
 
   function togglePostModal(device = false, showDelete = false) {
@@ -83,7 +110,7 @@ export default function Dashboard() {
           </div>
         )
       })}
-      <button>add</button>
+      <button onClick={() => { togglePostModal() }}>add</button>
 
       {showModal && (
         <Modal
@@ -92,6 +119,7 @@ export default function Dashboard() {
           updateDevice={updateDevice}
           showDelete={showDeleteMesage}
           deleteDevice={deleteDevice}
+          createDevice={createDevice}
         />)}
 
     </div>

@@ -2,7 +2,14 @@
 import './style.scss'
 
 import Form from '../Form'
-export default function Modal({ deviceSelected, close, updateDevice, showDelete, deleteDevice }) {
+export default function Modal({
+  deviceSelected,
+  close,
+  updateDevice,
+  showDelete,
+  deleteDevice,
+  createDevice
+}) {
 
   return (
     <div className="modal" style={{ background: 'black' }}>
@@ -18,7 +25,11 @@ export default function Modal({ deviceSelected, close, updateDevice, showDelete,
               </>
             )
             : <>
-              < Form deviceSelected={deviceSelected} updateDevice={updateDevice} />
+              < Form
+                deviceSelected={deviceSelected}
+                updateDevice={updateDevice}
+                createDevice={createDevice}
+              />
               <button onClick={close}>
                 Cancelar
               </button>

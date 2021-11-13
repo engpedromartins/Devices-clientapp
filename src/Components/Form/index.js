@@ -20,7 +20,7 @@ const validationSchema = yup.object({
 });
 
 
-function Form({ deviceSelected, updateDevice }) {
+function Form({ deviceSelected, updateDevice, createDevice }) {
   const formik = useFormik({
 
     initialValues: {
@@ -33,7 +33,7 @@ function Form({ deviceSelected, updateDevice }) {
     onSubmit: (values) => {
       deviceSelected
         ? updateDevice(values, deviceSelected.id)
-        : console.log(values)
+        : createDevice(values)
     },
   });
 
