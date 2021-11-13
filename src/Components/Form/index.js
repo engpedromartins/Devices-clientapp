@@ -25,7 +25,7 @@ function Form({ deviceSelected, updateDevice, createDevice }) {
 
     initialValues: {
       system_name: deviceSelected.system_name || '',
-      type: deviceSelected.type || 'DEFAULT',
+      type: deviceSelected.type || '',
       hdd_capacity: deviceSelected.hdd_capacity || ''
     },
 
@@ -76,7 +76,7 @@ function Form({ deviceSelected, updateDevice, createDevice }) {
             error={formik.touched.type && Boolean(formik.errors.type)}
             helperText={formik.touched.type && formik.errors.type}
           >
-            <MenuItem value="DEFAULT" disabled>Choose one ...</MenuItem>
+            <MenuItem value="" disabled>Choose one ...</MenuItem>
             <MenuItem value='WINDOWS_WORKSTATION'>Windows Workstation</MenuItem>
             <MenuItem value='WINDOWS_SERVER'>Windows Server</MenuItem>
             <MenuItem value='MAC'>Mac</MenuItem>
