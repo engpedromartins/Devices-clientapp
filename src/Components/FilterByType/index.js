@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Checkbox from "@material-ui/core/Checkbox";
 import InputLabel from "@material-ui/core/InputLabel";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -9,7 +9,7 @@ import Select from "@material-ui/core/Select";
 
 import { MenuProps, useStyles, options } from "./utils";
 
-function FilterTypeOfDevice({ filterByType }) {
+function FilterTypeOfDevice({ filterByType, updateValue }) {
   const classes = useStyles();
   const [selected, setSelected] = useState([]);
 
@@ -18,6 +18,10 @@ function FilterTypeOfDevice({ filterByType }) {
     setSelected(value);
     filterByType(value)
   };
+
+  useEffect(() => {
+    setSelected([])
+  }, [updateValue])
 
   return (
     <FormControl className={classes.formControl}>

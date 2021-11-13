@@ -3,10 +3,18 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
-    width: 300
+    width: 300,
+    root: {
+      checked: {
+        color: 'black'
+      }
+    }
   },
   indeterminateColor: {
-    color: "#f50057"
+    color: "black"
+  },
+  checked: {
+    color: 'black'
   },
   selectAllText: {
     fontWeight: 500
@@ -16,7 +24,8 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       backgroundColor: "rgba(0, 0, 0, 0.08)"
     }
-  }
+  },
+
 }));
 
 const ITEM_HEIGHT = 48;

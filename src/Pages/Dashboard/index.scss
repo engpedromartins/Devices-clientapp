@@ -60,3 +60,17 @@
   background: black;
   padding: 12px 33px;
 }
+.MuiCheckbox-colorSecondary.Mui-checked {
+  color: green !important;
+}
+.MuiFormLabel-root.Mui-focused {
+  color: black !important;
+}
+
+.MuiInput-underline:after {
+  border-bottom: 2px solid black !important;
+}
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: black !important;
+  border-width: 2px;
+}

@@ -41,14 +41,10 @@ export default function Dashboard() {
   const [listOfDevicesFiltered, setListOfDevicesFiltered] = useState([])
   const [showModal, setShowModal] = useState(false)
   const [deviceSelected, setDeviceSelected] = useState(null)
-  const [updateList, setUpdateList] = useState(false)
+  const [updateList, setUpdateList] = useState(1)
   const [showDeleteMesage, setShowDelete] = useState(false)
   const [columnDirection, setColumnDirection] = useState('asc')
   const [columnToSort, setColumnToSort] = useState('')
-  const isMobile = useMediaQuery("(max-width : 1440px)");
-
-
-
 
   useEffect(() => {
 
@@ -56,7 +52,10 @@ export default function Dashboard() {
     async function getDeviceList() {
       try {
         const res = await getDeviceApiList()
-        if (res.status === 200) return setListOfDevices(res.data)
+        if (res.status === 200) {
+          setListOfDevices(res.data)
+          setListOfDevicesFiltered(res.data)
+        }
 
       } catch (error) {
         toast.error('Ops something was wrong! Look at console')
@@ -72,7 +71,7 @@ export default function Dashboard() {
       const res = await editDeviceApi(device, id)
 
       if (res.data === 1) {
-        setUpdateList(!updateList)
+        setUpdateList(updateList + 1)
         setShowModal(!showModal)
       }
     } catch (error) {
@@ -88,7 +87,7 @@ export default function Dashboard() {
       const res = await deleteDeviceApi(id)
 
       if (res.data === 1) {
-        setUpdateList(!updateList)
+        setUpdateList(updateList + 1)
         setShowModal(!showModal)
       }
     } catch (error) {
@@ -102,9 +101,8 @@ export default function Dashboard() {
   async function createDevice(device) {
     try {
       const res = await createDeviceApi(device)
-      console.log(res)
       if (res.status === 200) {
-        setUpdateList(!updateList)
+        setUpdateList(updateList + 1)
         setShowModal(!showModal)
       }
     } catch (error) {
@@ -132,9 +130,6 @@ export default function Dashboard() {
     setColumnDirection(direction)
   };
 
-  function fcn(typeOfdevices) {
-
-  }
 
   function filterByType(typeOfdevices) {
 
@@ -146,7 +141,9 @@ export default function Dashboard() {
       )
     });
     var elementFiltered = elementToBeFilter.reduce((list, sub) => list.concat(sub), [])
-    console.log(elementFiltered)
+    elementFiltered.length
+      ? setListOfDevicesFiltered(elementFiltered)
+      : setUpdateList(updateList + 1)
   }
 
   return (
@@ -156,16 +153,14 @@ export default function Dashboard() {
         <button className='button-send' onClick={() => { togglePostModal() }}><FaPlusCircle /> add</button>
 
       </div>
-
-      <FilterTypeOfDevice filterByType={filterByType} />
+      <div style={{ margin: '0 40px 0 auto' }}>
+        <FilterTypeOfDevice filterByType={filterByType} updateValue={updateList} />
+      </div>
       <div className='section'>
         <TableContainer sx={{ maxHeight: 440 }}>
           <Table stickyHeader aria-label="sticky table">
 
-            <TableHead
-
-              variant={isMobile ? "scrollable" : "fullWidth"}
-            >
+            <TableHead>
               <TableRow>
                 <TableCell onClick={() => handleSort('system_name')}>
                   <TableSortLabel hideSortIcon='false'>SYSTEM NAME
@@ -189,7 +184,7 @@ export default function Dashboard() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {orderBy(listOfDevices, [columnToSort], columnDirection)
+              {orderBy(listOfDevicesFiltered, [columnToSort], columnDirection)
                 .map((device, index) => {
                   return (
 
@@ -242,16 +237,18 @@ export default function Dashboard() {
           </div>
         )
       })} */}
-      {showModal && (
-        <Modal
-          deviceSelected={deviceSelected}
-          close={togglePostModal}
-          updateDevice={updateDevice}
-          showDelete={showDeleteMesage}
-          deleteDevice={deleteDevice}
-          createDevice={createDevice}
-        />)}
+      {
+        showModal && (
+          <Modal
+            deviceSelected={deviceSelected}
+            close={togglePostModal}
+            updateDevice={updateDevice}
+            showDelete={showDeleteMesage}
+            deleteDevice={deleteDevice}
+            createDevice={createDevice}
+          />)
+      }
 
-    </div>
+    </div >
   )
 }

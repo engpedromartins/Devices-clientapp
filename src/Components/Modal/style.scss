@@ -42,6 +42,9 @@
   
 }
 .modal .container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: fixed;
   max-width: 280px;
   top: 15%;
