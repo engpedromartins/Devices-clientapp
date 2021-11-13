@@ -18,8 +18,9 @@ export const editDeviceApi = async (device, id) => {
 
 }
 
-export const deleteDeviceApi = async (id) =>
-  api.delete(`/devices/${id}`)
+export const deleteDeviceApi = async (device) =>
+  api.delete(`/devices/${device.id}`)
+
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {

@@ -20,19 +20,19 @@ const validationSchema = yup.object({
 });
 
 
-function Form({ deviceToBeEdited, updateDevice }) {
+function Form({ deviceSelected, updateDevice }) {
   const formik = useFormik({
 
     initialValues: {
-      system_name: deviceToBeEdited.system_name || '',
-      type: deviceToBeEdited.type || 'DEFAULT',
-      hdd_capacity: deviceToBeEdited.hdd_capacity || ''
+      system_name: deviceSelected.system_name || '',
+      type: deviceSelected.type || 'DEFAULT',
+      hdd_capacity: deviceSelected.hdd_capacity || ''
     },
 
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      deviceToBeEdited
-        ? updateDevice(values, deviceToBeEdited.id)
+      deviceSelected
+        ? updateDevice(values, deviceSelected.id)
         : console.log(values)
     },
   });

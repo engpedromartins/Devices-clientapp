@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 
 import Modal from '../../Components/Modal'
 
-import { getDeviceApiList, editDeviceApi } from '../../Services/api'
+import { getDeviceApiList, editDeviceApi, deleteDeviceApi } from '../../Services/api'
 
 import { toast } from 'react-toastify'
 
@@ -11,8 +11,9 @@ export default function Dashboard() {
 
   const [listOfDevices, setListOfDevices] = useState([])
   const [showModal, setShowModal] = useState(false)
-  const [deviceToBeEdited, setDeviceToBeEdited] = useState(null)
+  const [deviceSelected, setDeviceSelected] = useState(null)
   const [updateList, setUpdateList] = useState(false)
+  const [showDeleteMesage, setShowDelete] = useState(false)
 
   useEffect(() => {
     async function getDeviceList() {
@@ -34,7 +35,6 @@ export default function Dashboard() {
 
       if (res.data === 1) {
         setUpdateList(!updateList)
-        console.log(showModal)
         setShowModal(!showModal)
       }
     } catch (error) {
@@ -44,9 +44,26 @@ export default function Dashboard() {
     }
   }
 
-  function togglePostModal(data = false) {
+  async function deleteDevice(id) {
+    try {
+      const res = await deleteDeviceApi(id)
+
+      if (res.data === 1) {
+        setUpdateList(!updateList)
+        setShowModal(!showModal)
+      }
+    } catch (error) {
+      toast.error('Ops something was wrong! Look at console')
+      console.log('Error =>', { error })
+
+    }
+  }
+
+
+  function togglePostModal(device = false, showDelete = false) {
     setShowModal(!showModal)
-    setDeviceToBeEdited(data)
+    setDeviceSelected(device)
+    setShowDelete(showDelete)
   }
 
   return (
@@ -61,14 +78,21 @@ export default function Dashboard() {
             </div>
             <div style={{ marginBottom: '20px' }}>
               <button onClick={() => togglePostModal(device)}>update</button>
-              <button>delete</button>
+              <button onClick={() => togglePostModal(device, { showDelete: true })}>delete</button>
             </div>
           </div>
         )
       })}
       <button>add</button>
 
-      {showModal && (<Modal deviceToBeEdited={deviceToBeEdited} close={togglePostModal} updateDevice={updateDevice} />)}
+      {showModal && (
+        <Modal
+          deviceSelected={deviceSelected}
+          close={togglePostModal}
+          updateDevice={updateDevice}
+          showDelete={showDeleteMesage}
+          deleteDevice={deleteDevice}
+        />)}
 
     </div>
   )

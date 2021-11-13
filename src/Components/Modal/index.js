@@ -2,18 +2,28 @@
 import './style.scss'
 
 import Form from '../Form'
-export default function Modal({ deviceToBeEdited, close, updateDevice, }) {
-
+export default function Modal({ deviceSelected, close, updateDevice, showDelete, deleteDevice }) {
 
   return (
     <div className="modal" style={{ background: 'black' }}>
       <div className="container">
 
         <div className='style-button-modal'>
-          <Form deviceToBeEdited={deviceToBeEdited} updateDevice={updateDevice} />
-          <button onClick={close}>
-            Cancelar
-          </button>
+          {showDelete
+            ? (
+              <>
+                <h1>Are you sure</h1>
+                <button onClick={() => deleteDevice(deviceSelected)}>Yes</button>
+                <button onClick={close}>No</button>
+              </>
+            )
+            : <>
+              < Form deviceSelected={deviceSelected} updateDevice={updateDevice} />
+              <button onClick={close}>
+                Cancelar
+              </button>
+            </>
+          }
         </div>
 
       </div>
