@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
-
-import Modal from '../../Components/Modal'
+import './index.scss'
+import { toast } from 'react-toastify'
+import { orderBy } from 'natural-orderby';
 
 import {
   getDeviceApiList,
@@ -9,7 +10,8 @@ import {
   createDeviceApi
 } from '../../Services/api'
 
-import { toast } from 'react-toastify'
+import Modal from '../../Components/Modal'
+
 
 import {
   TableSortLabel,
@@ -18,13 +20,20 @@ import {
   TableHead,
   TableRow,
   TableCell,
-  TableBody
+  TableBody,
+  TableContainer,
+  useMediaQuery,
+
 } from '@material-ui/core';
 import IconSwapVert from '@material-ui/icons/SwapVert';
 
-import { orderBy } from 'natural-orderby';
-
-import './index.scss'
+import {
+  FaRegEdit,
+  FaPlusCircle,
+  FaTrash,
+  FaTimesCircle,
+  FaCheckCircle
+} from 'react-icons/fa'
 
 
 export default function Dashboard() {
@@ -36,6 +45,8 @@ export default function Dashboard() {
   const [showDeleteMesage, setShowDelete] = useState(false)
   const [columnDirection, setColumnDirection] = useState('asc')
   const [columnToSort, setColumnToSort] = useState('')
+  const isMobile = useMediaQuery("(max-width : 1440px)");
+
 
 
 
@@ -125,63 +136,70 @@ export default function Dashboard() {
     <div className='container'>
       <div className='section'>
         <h2>DashBoard</h2>
+        <button className='addButton' onClick={() => { togglePostModal() }}><FaPlusCircle /> add</button>
+
       </div>
 
 
       <div className='section'>
 
-        <Table padding='none'>
-          <TableHead>
-            <TableRow>
-              <TableCell onClick={() => handleSort('system_name')}>
-                <TableSortLabel hideSortIcon='false'>SYSTEM NAME
-                  <IconSwapVert style={{ fontSize: 14 }} />
-                </TableSortLabel>
-              </TableCell>
-              <TableCell onClick={() => handleSort('type')}>
-                <TableSortLabel hideSortIcon='false'>TYPE
-                  <IconSwapVert style={{ fontSize: 14 }} />
-                </TableSortLabel>
-              </TableCell>
-              <TableCell onClick={() => handleSort('hdd_capacity')}>
-                <TableSortLabel hideSortIcon='false'>HDD CAPACITY
-                  <IconSwapVert style={{ fontSize: 14 }} />
-                </TableSortLabel>
-              </TableCell>
-              <TableCell >
-                OPTIONS
-              </TableCell>
+        <TableContainer sx={{ maxHeight: 440 }}>
+          <Table stickyHeader aria-label="sticky table">
 
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {orderBy(listOfDevices, [columnToSort], columnDirection)
-              .map((device, index) => {
-                return (
+            <TableHead
 
-                  <TableRow key={index}>
-                    <TableCell>
-                      {device.system_name}
-                    </TableCell>
-                    <TableCell>
-                      {device.type}
-                    </TableCell>
-                    <TableCell>
-                      {device.hdd_capacity} GB
-                    </TableCell>
-                    <TableCell>
-                      <div style={{ marginBottom: '20px' }}>
-                        <button onClick={() => togglePostModal(device)}>update</button>
-                        <button onClick={() => togglePostModal(device, { showDelete: true })}>delete </button>
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
+              variant={isMobile ? "scrollable" : "fullWidth"}
+            >
+              <TableRow>
+                <TableCell onClick={() => handleSort('system_name')}>
+                  <TableSortLabel hideSortIcon='false'>SYSTEM NAME
+                    <IconSwapVert style={{ fontSize: 14 }} />
+                  </TableSortLabel>
+                </TableCell>
+                <TableCell onClick={() => handleSort('type')}>
+                  <TableSortLabel hideSortIcon='false'>TYPE
+                    <IconSwapVert style={{ fontSize: 14 }} />
+                  </TableSortLabel>
+                </TableCell>
+                <TableCell onClick={() => handleSort('hdd_capacity')}>
+                  <TableSortLabel hideSortIcon='false'>HDD CAPACITY
+                    <IconSwapVert style={{ fontSize: 14 }} />
+                  </TableSortLabel>
+                </TableCell>
+                <TableCell >
+                  OPTIONS
+                </TableCell>
 
-          </TableBody>
-        </Table>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {orderBy(listOfDevices, [columnToSort], columnDirection)
+                .map((device, index) => {
+                  return (
 
+                    <TableRow key={index}>
+                      <TableCell>
+                        {device.system_name}
+                      </TableCell>
+                      <TableCell>
+                        {device.type}
+                      </TableCell>
+                      <TableCell>
+                        {device.hdd_capacity} GB
+                      </TableCell>
+                      <TableCell>
+                        <div style={{ marginBottom: '20px' }}>
+                          <button onClick={() => togglePostModal(device)}>update</button>
+                          <button onClick={() => togglePostModal(device, { showDelete: true })}>delete </button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+
+            </TableBody>
+          </Table>
+        </TableContainer>
       </div>
 
       {/* {listOfDevices?.length && listOfDevices.map((device) => {
@@ -199,8 +217,6 @@ export default function Dashboard() {
           </div>
         )
       })} */}
-      <button className='addButton' onClick={() => { togglePostModal() }}>add</button>
-
       {showModal && (
         <Modal
           deviceSelected={deviceSelected}
