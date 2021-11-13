@@ -58,7 +58,7 @@ export default function Dashboard() {
         }
 
       } catch (error) {
-        toast.error('Ops something was wrong! Look at console')
+        toast.info('Ops something was wrong! Look at console')
         console.log('Error =>', { error })
       }
     }
@@ -75,7 +75,7 @@ export default function Dashboard() {
         setShowModal(!showModal)
       }
     } catch (error) {
-      toast.error('Ops something was wrong! Look at console')
+      toast.info('Ops something was wrong! Look at console')
       console.log('Error =>', { error })
 
     }
@@ -91,7 +91,7 @@ export default function Dashboard() {
         setShowModal(!showModal)
       }
     } catch (error) {
-      toast.error('Ops something was wrong! Look at console')
+      toast.info('Ops something was wrong! Look at console')
       console.log('Error =>', { error })
 
     }
@@ -106,7 +106,7 @@ export default function Dashboard() {
         setShowModal(!showModal)
       }
     } catch (error) {
-      toast.error('Ops something was wrong! Look at console')
+      toast.info('Ops something was wrong! Look at console')
       console.log('Error =>', { error })
 
     }
@@ -163,17 +163,17 @@ export default function Dashboard() {
             <TableHead>
               <TableRow>
                 <TableCell onClick={() => handleSort('system_name')}>
-                  <TableSortLabel hideSortIcon='false'>SYSTEM NAME
+                  <TableSortLabel hideSortIcon={true} >SYSTEM NAME
                     <IconSwapVert style={{ fontSize: 14 }} />
                   </TableSortLabel>
                 </TableCell>
                 <TableCell onClick={() => handleSort('type')}>
-                  <TableSortLabel hideSortIcon='false'>TYPE
+                  <TableSortLabel hideSortIcon={true} >TYPE
                     <IconSwapVert style={{ fontSize: 14 }} />
                   </TableSortLabel>
                 </TableCell>
                 <TableCell onClick={() => handleSort('hdd_capacity')}>
-                  <TableSortLabel hideSortIcon='false'>HDD CAPACITY
+                  <TableSortLabel hideSortIcon={true} >HDD CAPACITY
                     <IconSwapVert style={{ fontSize: 14 }} />
                   </TableSortLabel>
                 </TableCell>
