@@ -12,6 +12,7 @@ export default function Dashboard() {
   const [listOfDevices, setListOfDevices] = useState([])
   const [showModal, setShowModal] = useState(false)
   const [deviceToBeEdited, setDeviceToBeEdited] = useState(null)
+  const [updateList, setUpdateList] = useState(false)
 
   useEffect(() => {
     async function getDeviceList() {
@@ -25,12 +26,17 @@ export default function Dashboard() {
       }
     }
     getDeviceList()
-  }, [])
+  }, [updateList])
 
-  async function updateDevice(device) {
+  async function updateDevice(device, id) {
     try {
-      const res = await editDeviceApi(device)
-      if (res.status === 200) console.log()
+      const res = await editDeviceApi(device, id)
+
+      if (res.data === 1) {
+        setUpdateList(!updateList)
+        console.log(showModal)
+        setShowModal(!showModal)
+      }
     } catch (error) {
       toast.error('Ops something was wrong! Look at console')
       console.log('Error =>', { error })
@@ -38,7 +44,7 @@ export default function Dashboard() {
     }
   }
 
-  function togglePostModal(data) {
+  function togglePostModal(data = false) {
     setShowModal(!showModal)
     setDeviceToBeEdited(data)
   }
@@ -62,7 +68,7 @@ export default function Dashboard() {
       })}
       <button>add</button>
 
-      {showModal && (<Modal data={deviceToBeEdited} close={togglePostModal} />)}
+      {showModal && (<Modal deviceToBeEdited={deviceToBeEdited} close={togglePostModal} updateDevice={updateDevice} />)}
 
     </div>
   )

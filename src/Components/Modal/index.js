@@ -2,7 +2,7 @@
 import './style.scss'
 
 import Form from '../Form'
-export default function Modal({ data, close }) {
+export default function Modal({ deviceToBeEdited, close, updateDevice, }) {
 
 
   return (
@@ -10,7 +10,7 @@ export default function Modal({ data, close }) {
       <div className="container">
 
         <div className='style-button-modal'>
-          <Form data={data} />
+          <Form deviceToBeEdited={deviceToBeEdited} updateDevice={updateDevice} />
           <button onClick={close}>
             Cancelar
           </button>
