@@ -110,7 +110,7 @@ function Form({ deviceSelected, updateDevice, createDevice }) {
           type="submit"
           style={{ marginTop: '15px' }}
         >
-          Send
+          {deviceSelected ? 'Save' : 'Add'}
         </Button>
 
       </form >

@@ -134,7 +134,7 @@ export default function Dashboard() {
     <div className='container'>
       <div className='section'>
         <h2>DashBoard</h2>
-        <button className='addButton' onClick={() => { togglePostModal() }}><FaPlusCircle /> add</button>
+        <button className='button-send' onClick={() => { togglePostModal() }}><FaPlusCircle /> add</button>
 
       </div>
 

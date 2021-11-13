@@ -40,8 +40,15 @@ export default function Modal({
                 updateDevice={updateDevice}
                 createDevice={createDevice}
               />
-              <button onClick={close}>
-                Cancelar
+              <button style={{
+                width: '100%',
+                margin: 'auto',
+                border: 'none',
+                background: 'transparent',
+                color: 'gray',
+                marginTop: '15px'
+              }} onClick={close}>
+                Cancel
               </button>
             </>
           }
