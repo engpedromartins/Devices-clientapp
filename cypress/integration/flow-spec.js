@@ -1,3 +1,4 @@
+
 Cypress.SelectorPlayground.defaults({
   selectorPriority: [
     'data-cy',

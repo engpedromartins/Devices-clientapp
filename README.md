@@ -26,7 +26,7 @@ npm run cypress:ninja-flow
 ### IMPORTANT 
 the tests are built to work with the original data, if the backend changes data there may be errors. To avoid this, when running the tests always keep the original backend database (restart the backend server)
 
-the test will run the application on port 3001, if the port that the server is running on is not this one, indicate the right path by changing the flow-spec file to the path => cypress > integration > flow-spec.js
+the test will run the application on port 3001 for this the application must be running (npm start), if the port on which the server is running is not this one, indicate the correct path by changing the flow-spec file to the path => cypress > integration > flow-spec.js
 #######################################################
 
 ### `yarn build`
