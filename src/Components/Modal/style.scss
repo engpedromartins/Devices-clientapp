@@ -86,3 +86,14 @@
   padding-top: 0.5em;
   white-space: pre-wrap;
 }
+
+@media (max-width: 320px) {
+  .modal .container{
+    max-width: 210px;
+  }
+
+  .container-modal{
+    width: 200px;
+  }
+ 
+}

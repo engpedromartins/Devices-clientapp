@@ -85,15 +85,16 @@
   }
   .container{
     width: 280px;
+    margin: auto;
   }
   .container-modal{
     width: 200px;
     max-width: 220px;
   }
 
-  .container-modal{
-    width: 200px;
-  }
+ .modal .container{
+   max-width: 240px;
+ }
 
   .makeStyles-formControl-51 {
     width: 250px !important;
