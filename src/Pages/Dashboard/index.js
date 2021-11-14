@@ -35,6 +35,7 @@ import {
 
 export default function Dashboard() {
 
+  //set variables
   const [listOfDevices, setListOfDevices] = useState([])
   const [listOfDevicesFiltered, setListOfDevicesFiltered] = useState([])
   const [showModal, setShowModal] = useState(false)
@@ -44,6 +45,7 @@ export default function Dashboard() {
   const [columnDirection, setColumnDirection] = useState('asc')
   const [columnToSort, setColumnToSort] = useState('')
 
+  //load devices and update
   useEffect(() => {
 
     //LIST
@@ -54,7 +56,6 @@ export default function Dashboard() {
           setListOfDevices(res.data)
           setListOfDevicesFiltered(res.data)
         }
-
       } catch (error) {
         toast.info('Ops something was wrong! Look at console')
         console.log('Error =>', { error })
@@ -110,15 +111,14 @@ export default function Dashboard() {
     }
   }
 
-
-
-
+  //Open or Close modal function and send some params for component
   function togglePostModal(device = false, showDelete = false) {
     setShowModal(!showModal)
     setDeviceSelected(device)
     setShowDelete(showDelete)
   }
 
+  //order by column name and desc or asc
   function handleSort(column) {
     let direction = columnDirection;
     if (column === columnToSort) {
@@ -128,17 +128,16 @@ export default function Dashboard() {
     setColumnDirection(direction)
   };
 
-
+  //filter device by type
   function filterByType(typeOfdevices) {
-
     const elementToBeFilter = []
-
     typeOfdevices.forEach(element => {
       elementToBeFilter.push(listOfDevices.filter((device) =>
         device.type.includes(element))
       )
     });
-    var elementFiltered = elementToBeFilter.reduce((list, sub) => list.concat(sub), [])
+    var elementFiltered = elementToBeFilter.reduce((list, sub) =>
+      list.concat(sub), [])
     elementFiltered.length
       ? setListOfDevicesFiltered(elementFiltered)
       : setUpdateList(updateList + 1)
@@ -151,30 +150,35 @@ export default function Dashboard() {
         <button className='button-send' onClick={() => { togglePostModal() }}><FaPlusCircle /> add</button>
 
       </div>
+
+      {/* Select for filter by type */}
       <div style={{ margin: '0 40px 0 auto' }}>
         <FilterTypeOfDevice filterByType={filterByType} updateValue={updateList} />
       </div>
       <div className='section'>
         <TableContainer sx={{ maxHeight: 440 }}>
           <Table stickyHeader aria-label="sticky table">
-
             <TableHead>
               <TableRow>
+
                 <TableCell onClick={() => handleSort('system_name')}>
                   <TableSortLabel hideSortIcon={true} >SYSTEM NAME
                     <IconSwapVert style={{ fontSize: 14 }} />
                   </TableSortLabel>
                 </TableCell>
+
                 <TableCell onClick={() => handleSort('type')}>
                   <TableSortLabel hideSortIcon={true} >TYPE
                     <IconSwapVert style={{ fontSize: 14 }} />
                   </TableSortLabel>
                 </TableCell>
+
                 <TableCell onClick={() => handleSort('hdd_capacity')}>
                   <TableSortLabel hideSortIcon={true} >HDD CAPACITY
                     <IconSwapVert style={{ fontSize: 14 }} />
                   </TableSortLabel>
                 </TableCell>
+
                 <TableCell >
                   OPTIONS
                 </TableCell>
@@ -185,17 +189,19 @@ export default function Dashboard() {
               {orderBy(listOfDevicesFiltered, [columnToSort], columnDirection)
                 .map((device, index) => {
                   return (
-
                     <TableRow key={index}>
                       <TableCell>
                         {device.system_name}
                       </TableCell>
+
                       <TableCell>
                         {device.type}
                       </TableCell>
+
                       <TableCell>
                         {device.hdd_capacity} GB
                       </TableCell>
+
                       <TableCell>
                         <div className='button-stack'>
                           <button
@@ -204,6 +210,7 @@ export default function Dashboard() {
                               togglePostModal(device)}>
                             <FaRegEdit /> update
                           </button>
+
                           <button
                             onClick={() =>
                               togglePostModal(device, { showDelete: true })}>
@@ -214,27 +221,11 @@ export default function Dashboard() {
                     </TableRow>
                   );
                 })}
-
             </TableBody>
           </Table>
         </TableContainer>
       </div>
 
-      {/* {listOfDevices?.length && listOfDevices.map((device) => {
-        return (
-          <div key={device.id}>
-            <div>
-              <div>{device.system_name}</div>
-              <div>{device.type}</div>
-              <div>{device.hdd_capacity} GB</div>
-            </div>
-            <div style={{ marginBottom: '20px' }}>
-              <button onClick={() => togglePostModal(device)}>update</button>
-              <button onClick={() => togglePostModal(device, { showDelete: true })}>delete</button>
-            </div>
-          </div>
-        )
-      })} */}
       {
         showModal && (
           <Modal
