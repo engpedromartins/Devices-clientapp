@@ -152,7 +152,7 @@ export default function Dashboard() {
       </div>
 
       {/* Select for filter by type */}
-      <div style={{ margin: '0 40px 0 auto' }}>
+      <div className='align-component'>
         <FilterTypeOfDevice filterByType={filterByType} updateValue={updateList} />
       </div>
       <div className='section'>
