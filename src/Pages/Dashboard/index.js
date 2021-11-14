@@ -16,14 +16,12 @@ import FilterTypeOfDevice from '../../Components/FilterByType';
 
 import {
   TableSortLabel,
-  Paper,
   Table,
   TableHead,
   TableRow,
   TableCell,
   TableBody,
   TableContainer,
-  useMediaQuery,
 
 } from '@material-ui/core';
 import IconSwapVert from '@material-ui/icons/SwapVert';
