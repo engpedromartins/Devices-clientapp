@@ -12,7 +12,7 @@ function App() {
       <BrowserRouter>
         <ToastContainer autoClose={3000} />
         <Routes>
-          <Route path='/' element={<Dashboard />} />
+          <Route path='/' element={<Dashboard data-cy='select' />} />
         </Routes>
       </BrowserRouter>
     </div>
