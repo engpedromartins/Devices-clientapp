@@ -8,7 +8,7 @@ In the project directory, you can run:
 
 ### `yarn start`
 
-To run the application correctly have the back-end running on port 3000, otherwise you will need to change the .env file with the correct port of the back-end server
+To run the application correctly have the back-end ( https://github.com/NinjaMSP/devicesTask_serverApp ) running on port 3000, otherwise you will need to change the .env file with the correct port of the back-end server
 
 Runs the app in the development mode.\
 Open [http://localhost:3001](http://localhost:3001) to view it in the browser.
