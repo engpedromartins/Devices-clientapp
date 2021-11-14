@@ -13,6 +13,7 @@ function FilterTypeOfDevice({ filterByType, updateValue }) {
   const classes = useStyles();
   const [selected, setSelected] = useState([]);
 
+  //when change the value this function send de value by props
   const handleChange = (event) => {
     const value = event.target.value;
     setSelected(value);

@@ -19,7 +19,6 @@ const validationSchema = yup.object({
 
 });
 
-
 function Form({ deviceSelected, updateDevice, createDevice }) {
   const formik = useFormik({
 
@@ -30,6 +29,8 @@ function Form({ deviceSelected, updateDevice, createDevice }) {
     },
 
     validationSchema: validationSchema,
+
+    //verify if have some deviceselected for know witch function use
     onSubmit: (values) => {
       deviceSelected
         ? updateDevice(values, deviceSelected.id)
@@ -40,14 +41,8 @@ function Form({ deviceSelected, updateDevice, createDevice }) {
   return (
 
     <div>
-
-      <form
-        className='form'
-        onSubmit={formik.handleSubmit}
-      >
-        <div
-        >
-
+      <form className='form' onSubmit={formik.handleSubmit}>
+        <div>
           <TextField
             fullWidth
             id="system_name"
@@ -82,7 +77,6 @@ function Form({ deviceSelected, updateDevice, createDevice }) {
             <MenuItem value='MAC'>Mac</MenuItem>
           </TextField>
         </div>
-
         <div>
           <TextField
             fullWidth

@@ -1,8 +1,6 @@
 
 import './style.scss'
-
 import Form from '../Form'
-
 import {
   FaTimesCircle,
   FaCheckCircle
@@ -16,11 +14,9 @@ export default function Modal({
   deleteDevice,
   createDevice
 }) {
-
   return (
     <div className="modal" >
       <div className="container">
-
         <div className='style-button-modal'>
           {showDelete
             ? (
@@ -53,7 +49,6 @@ export default function Modal({
             </>
           }
         </div>
-
       </div>
     </div>
   )
