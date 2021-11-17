@@ -9,7 +9,7 @@ import Select from "@material-ui/core/Select";
 
 import { MenuProps, useStyles, options } from "./utils";
 
-function FilterTypeOfDevice({ filterByType, updateValue }) {
+function FilterTypeOfDevice({ filterByType }) {
   const classes = useStyles();
   const [selected, setSelected] = useState([]);
 
@@ -19,10 +19,6 @@ function FilterTypeOfDevice({ filterByType, updateValue }) {
     setSelected(value);
     filterByType(value)
   };
-
-  useEffect(() => {
-    setSelected([])
-  }, [updateValue])
 
   return (
     <FormControl className={classes.formControl}>

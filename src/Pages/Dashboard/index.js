@@ -40,10 +40,12 @@ export default function Dashboard() {
   const [listOfDevicesFiltered, setListOfDevicesFiltered] = useState([])
   const [showModal, setShowModal] = useState(false)
   const [deviceSelected, setDeviceSelected] = useState(null)
-  const [updateList, setUpdateList] = useState(1)
+  const [updateList, setUpdateList] = useState(0)
   const [showDeleteMesage, setShowDelete] = useState(false)
   const [columnDirection, setColumnDirection] = useState('asc')
   const [columnToSort, setColumnToSort] = useState('')
+  const [listElementeTobeFiltered, setListElementToBeFiltered] = useState([])
+  const [initialize, setInitialize] = useState(true)
 
   //load devices and update
   useEffect(() => {
@@ -54,7 +56,7 @@ export default function Dashboard() {
         const res = await getDeviceApiList()
         if (res.status === 200) {
           setListOfDevices(res.data)
-          setListOfDevicesFiltered(res.data)
+          filterByType(listElementeTobeFiltered)
         }
       } catch (error) {
         toast.info('Ops something was wrong! Look at console')
@@ -64,13 +66,15 @@ export default function Dashboard() {
     getDeviceList()
   }, [updateList])
 
+
+
   //UPDATE
   async function updateDevice(device, id) {
     try {
       const res = await editDeviceApi(device, id)
 
       if (res.data === 1) {
-        setUpdateList(updateList + 1)
+        setUpdateList(2)
         setShowModal(!showModal)
       }
     } catch (error) {
@@ -86,7 +90,7 @@ export default function Dashboard() {
       const res = await deleteDeviceApi(id)
 
       if (res.data === 1) {
-        setUpdateList(updateList + 1)
+        setUpdateList(3)
         setShowModal(!showModal)
       }
     } catch (error) {
@@ -101,7 +105,7 @@ export default function Dashboard() {
     try {
       const res = await createDeviceApi(device)
       if (res.status === 200) {
-        setUpdateList(updateList + 1)
+        setUpdateList(4)
         setShowModal(!showModal)
       }
     } catch (error) {
@@ -130,29 +134,44 @@ export default function Dashboard() {
 
   //filter device by type
   function filterByType(typeOfdevices) {
-    const elementToBeFilter = typeOfdevices.map(element => {
-      return listOfDevices.filter((device) =>
-        device.type === element)
 
+    //filter
+    const elementsToBeFilter = typeOfdevices.map(element => {
+      return listOfDevices.filter((device) => device.type === element)
     });
-    var elementFiltered = elementToBeFilter.reduce((list, sub) =>
+
+    //transform any array for one array
+    var elementFiltered = elementsToBeFilter.reduce((list, sub) =>
       list.concat(sub), [])
+
+    //define the list of exibition
     elementFiltered.length
       ? setListOfDevicesFiltered(elementFiltered)
       : setListOfDevicesFiltered(listOfDevices)
+    setListElementToBeFiltered(typeOfdevices)
+
+
+    //condition to call the list only once when initializing
+    if (initialize === true) {
+      setUpdateList(1)
+      setInitialize(false)
+    }
   }
 
   return (
     <div className='container'>
       <div className='section'>
         <h2>DashBoard</h2>
-        <button className='button-send' onClick={() => { togglePostModal() }}><FaPlusCircle /> add</button>
+        <button className='button-send' onClick={() => { togglePostModal() }}>
+          <FaPlusCircle />
+          add
+        </button>
 
       </div>
 
       {/* Select for filter by type */}
       <div className='align-component'>
-        <FilterTypeOfDevice filterByType={filterByType} updateValue={updateList} />
+        <FilterTypeOfDevice filterByType={filterByType} />
       </div>
       <div className='section'>
         <TableContainer sx={{ maxHeight: 440 }}>
