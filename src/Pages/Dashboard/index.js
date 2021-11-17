@@ -130,11 +130,10 @@ export default function Dashboard() {
 
   //filter device by type
   function filterByType(typeOfdevices) {
-    const elementToBeFilter = []
-    typeOfdevices.forEach(element => {
-      elementToBeFilter.push(listOfDevices.filter((device) =>
-        device.type.includes(element))
-      )
+    const elementToBeFilter = typeOfdevices.map(element => {
+      return listOfDevices.filter((device) =>
+        device.type === element)
+
     });
     var elementFiltered = elementToBeFilter.reduce((list, sub) =>
       list.concat(sub), [])
