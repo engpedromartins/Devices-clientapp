@@ -140,7 +140,7 @@ export default function Dashboard() {
       list.concat(sub), [])
     elementFiltered.length
       ? setListOfDevicesFiltered(elementFiltered)
-      : setUpdateList(updateList + 1)
+      : setListOfDevicesFiltered(listOfDevices)
   }
 
   return (
