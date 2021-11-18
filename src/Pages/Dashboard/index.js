@@ -45,7 +45,6 @@ export default function Dashboard() {
   const [columnDirection, setColumnDirection] = useState('asc')
   const [columnToSort, setColumnToSort] = useState('')
   const [listElementeTobeFiltered, setListElementToBeFiltered] = useState([])
-  const [initialize, setInitialize] = useState(true)
 
   //load devices and update
   useEffect(() => {
@@ -149,13 +148,7 @@ export default function Dashboard() {
       ? setListOfDevicesFiltered(elementFiltered)
       : setListOfDevicesFiltered(listOfDevices)
     setListElementToBeFiltered(typeOfdevices)
-
-
-    //condition to call the list only once when initializing
-    if (initialize === true) {
-      setUpdateList(1)
-      setInitialize(false)
-    }
+    setUpdateList(1)
   }
 
   return (
