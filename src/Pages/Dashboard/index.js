@@ -49,13 +49,12 @@ export default function Dashboard() {
   //load devices and update
   useEffect(() => {
 
-    //LIST
+    //GET DEVICES
     async function getDeviceList() {
       try {
         const res = await getDeviceApiList()
         if (res.status === 200) {
           setListOfDevices(res.data)
-          filterByType(listElementeTobeFiltered)
         }
       } catch (error) {
         toast.info('Ops something was wrong! Look at console')
@@ -63,8 +62,32 @@ export default function Dashboard() {
       }
     }
     getDeviceList()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [updateList])
+
+  useEffect(() => {
+    //filter device by type
+    function filterByType(typeOfdevices) {
+
+      //filter
+      const elementsToBeFilter = typeOfdevices.map(element => {
+        return listOfDevices.filter((device) => device.type === element)
+      });
+
+      //transform any array for one array
+      var elementFiltered = elementsToBeFilter.reduce((list, sub) =>
+        list.concat(sub), [])
+
+      //define the list of exibition
+      elementFiltered.length
+        ? setListOfDevicesFiltered(elementFiltered)
+        : setListOfDevicesFiltered(listOfDevices)
+      setListElementToBeFiltered(typeOfdevices)
+    }
+
+    // CREATE LIST DEVICE SHOW
+    if (listElementeTobeFiltered.length) return filterByType(listElementeTobeFiltered)
+    setListOfDevicesFiltered(listOfDevices)
+  }, [listElementeTobeFiltered, listOfDevices])
 
 
 
@@ -74,7 +97,7 @@ export default function Dashboard() {
       const res = await editDeviceApi(device, id)
 
       if (res.data === 1) {
-        setUpdateList(2)
+        setUpdateList(updateList + 1)
         setShowModal(!showModal)
       }
     } catch (error) {
@@ -90,7 +113,7 @@ export default function Dashboard() {
       const res = await deleteDeviceApi(id)
 
       if (res.data === 1) {
-        setUpdateList(3)
+        setUpdateList(updateList + 1)
         setShowModal(!showModal)
       }
     } catch (error) {
@@ -105,7 +128,7 @@ export default function Dashboard() {
     try {
       const res = await createDeviceApi(device)
       if (res.status === 200) {
-        setUpdateList(4)
+        setUpdateList(updateList + 1)
         setShowModal(!showModal)
       }
     } catch (error) {
@@ -132,25 +155,7 @@ export default function Dashboard() {
     setColumnDirection(direction)
   };
 
-  //filter device by type
-  function filterByType(typeOfdevices) {
 
-    //filter
-    const elementsToBeFilter = typeOfdevices.map(element => {
-      return listOfDevices.filter((device) => device.type === element)
-    });
-
-    //transform any array for one array
-    var elementFiltered = elementsToBeFilter.reduce((list, sub) =>
-      list.concat(sub), [])
-
-    //define the list of exibition
-    elementFiltered.length
-      ? setListOfDevicesFiltered(elementFiltered)
-      : setListOfDevicesFiltered(listOfDevices)
-    setListElementToBeFiltered(typeOfdevices)
-    setUpdateList(1)
-  }
 
   return (
     <div className='container'>
@@ -165,7 +170,7 @@ export default function Dashboard() {
 
       {/* Select for filter by type */}
       <div className='align-component'>
-        <FilterTypeOfDevice filterByType={filterByType} />
+        <FilterTypeOfDevice filterByType={setListElementToBeFiltered} />
       </div>
       <div className='section'>
         <TableContainer sx={{ maxHeight: 440 }}>
