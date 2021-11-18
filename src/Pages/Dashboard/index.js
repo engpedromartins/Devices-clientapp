@@ -46,7 +46,6 @@ export default function Dashboard() {
   const [columnToSort, setColumnToSort] = useState('')
   const [listElementeTobeFiltered, setListElementToBeFiltered] = useState([])
 
-  //load devices and update
   useEffect(() => {
 
     //GET DEVICES
@@ -65,6 +64,7 @@ export default function Dashboard() {
   }, [updateList])
 
   useEffect(() => {
+
     //filter device by type
     function filterByType(typeOfdevices) {
 
