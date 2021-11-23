@@ -71,11 +71,11 @@ export default function Dashboard() {
       //filter
       const elementFiltered = listOfDevices.filter(e => typeOfdevices.includes(e.type))
 
+      console.log(typeOfdevices)
       //define the list of exibition
-      elementFiltered.length
+      typeOfdevices
         ? setListOfDevicesFiltered(elementFiltered)
         : setListOfDevicesFiltered(listOfDevices)
-
     }
 
     // CREATE LIST DEVICE SHOW
