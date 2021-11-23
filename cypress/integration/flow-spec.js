@@ -43,8 +43,8 @@ context('Ninja one simple flow test', () => {
     it('filter devices by on type  MAC and WINDOWS_WORKSTATION', () => {
       cy.get('[data-value="WINDOWS_SERVER"]').click()
       cy.get('[data-value="WINDOWS_WORKSTATION"] > .MuiListItemText-root > .MuiTypography-root').click()
-      cy.get('.MuiTableBody-root > :nth-child(1) > :nth-child(2)').should('have.text', 'MAC')
-      cy.get(':nth-child(5) > :nth-child(2)').should('have.text', 'WINDOWS_WORKSTATION')
+      cy.get('.MuiTableBody-root > :nth-child(2) > :nth-child(2)').should('have.text', 'MAC')
+      cy.get(':nth-child(6) > :nth-child(2)').should('have.text', 'WINDOWS_WORKSTATION')
 
     })
 
@@ -52,14 +52,14 @@ context('Ninja one simple flow test', () => {
       cy.get('[data-value="MAC"]').click()
       cy.get('[data-value="WINDOWS_SERVER"]').click()
       cy.get('.MuiTableBody-root > :nth-child(1) > :nth-child(2)').should('have.text', 'WINDOWS_WORKSTATION')
-      cy.get(':nth-child(5) > :nth-child(2)').should('have.text', 'WINDOWS_SERVER')
+      cy.get(':nth-child(6) > :nth-child(2)').should('have.text', 'WINDOWS_SERVER')
 
     });
 
     it('filter devices by on type WINDOWS WORKSTATION, WINDOWS_SERVER and MAC', () => {
       cy.get('[data-value="MAC"]').click()
       cy.get('.MuiTableBody-root > :nth-child(1) > :nth-child(2)').should('have.text', 'WINDOWS_WORKSTATION')
-      cy.get(':nth-child(5) > :nth-child(2)').should('have.text', 'WINDOWS_SERVER')
+      cy.get(':nth-child(7) > :nth-child(2)').should('have.text', 'WINDOWS_SERVER')
       cy.get(':nth-child(10) > :nth-child(2)').should('have.text', 'MAC')
 
     });
