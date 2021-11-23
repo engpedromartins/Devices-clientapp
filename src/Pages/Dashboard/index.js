@@ -71,7 +71,6 @@ export default function Dashboard() {
       //filter
       const elementFiltered = listOfDevices.filter(e => typeOfdevices.includes(e.type))
 
-      console.log(typeOfdevices)
       //define the list of exibition
       typeOfdevices
         ? setListOfDevicesFiltered(elementFiltered)
