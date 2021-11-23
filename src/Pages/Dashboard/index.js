@@ -192,9 +192,9 @@ export default function Dashboard() {
             </TableHead>
             <TableBody>
               {orderBy(listOfDevicesFiltered, [columnToSort], columnDirection)
-                .map((device, index) => {
+                .map((device) => {
                   return (
-                    <TableRow key={index}>
+                    <TableRow key={device.id}>
                       <TableCell>
                         {device.system_name}
                       </TableCell>
