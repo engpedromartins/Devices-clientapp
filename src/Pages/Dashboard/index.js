@@ -69,19 +69,13 @@ export default function Dashboard() {
     function filterByType(typeOfdevices) {
 
       //filter
-      const elementsToBeFilter = typeOfdevices.map(element => {
-        return listOfDevices.filter((device) => device.type === element)
-      });
-
-      //transform any array for one array
-      var elementFiltered = elementsToBeFilter.reduce((list, sub) =>
-        list.concat(sub), [])
+      const elementFiltered = listOfDevices.filter(e => typeOfdevices.includes(e.type))
 
       //define the list of exibition
       elementFiltered.length
         ? setListOfDevicesFiltered(elementFiltered)
         : setListOfDevicesFiltered(listOfDevices)
-      setListElementToBeFiltered(typeOfdevices)
+
     }
 
     // CREATE LIST DEVICE SHOW
@@ -95,7 +89,6 @@ export default function Dashboard() {
   async function updateDevice(device, id) {
     try {
       const res = await editDeviceApi(device, id)
-
       if (res.data === 1) {
         setUpdateList(updateList + 1)
         setShowModal(!showModal)
@@ -103,7 +96,6 @@ export default function Dashboard() {
     } catch (error) {
       toast.info('Ops something was wrong! Look at console')
       console.log('Error =>', { error })
-
     }
   }
 
@@ -111,7 +103,6 @@ export default function Dashboard() {
   async function deleteDevice(id) {
     try {
       const res = await deleteDeviceApi(id)
-
       if (res.data === 1) {
         setUpdateList(updateList + 1)
         setShowModal(!showModal)
@@ -155,8 +146,6 @@ export default function Dashboard() {
     setColumnDirection(direction)
   };
 
-
-
   return (
     <div className='container'>
       <div className='section'>
@@ -165,7 +154,6 @@ export default function Dashboard() {
           <FaPlusCircle />
           add
         </button>
-
       </div>
 
       {/* Select for filter by type */}
